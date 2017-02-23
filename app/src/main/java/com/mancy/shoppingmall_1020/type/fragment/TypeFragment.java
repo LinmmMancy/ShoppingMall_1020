@@ -16,6 +16,7 @@ import com.mancy.shoppingmall_1020.base.BaseFragment;
 
 public class TypeFragment extends BaseFragment {
 
+
     private TextView textView;
 
     @Override

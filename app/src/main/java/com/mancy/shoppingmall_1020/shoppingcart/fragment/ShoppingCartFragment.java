@@ -18,6 +18,7 @@ public class ShoppingCartFragment extends BaseFragment {
 
     private TextView textView;
 
+
     @Override
     public View initView() {
 

@@ -20,17 +20,20 @@ import android.view.ViewGroup;
  * 用户中心：UserFragemnt
  */
 
+
 public abstract class BaseFragment extends Fragment {
-    //上下文
+
     public Context mcontext;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mcontext = getActivity();
 
-
     }
+
 
     @Nullable
     @Override
@@ -52,15 +55,15 @@ public abstract class BaseFragment extends Fragment {
 
         initData();
 
+        /***
+         * 初始化数据
+         */
     }
 
-    /***
-     * 初始化数据
-     */
     public void initData() {
 
 
-    }
+}
 
 
 }

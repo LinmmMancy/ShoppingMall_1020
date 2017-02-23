@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:orientation="vertical"
     android:background="#ffffff"
+    android:orientation="vertical"
     tools:context="com.mancy.shoppingmall_1020.MainActivity">
 
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/fl_main"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="1" />
@@ -19,11 +19,11 @@
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:background="@drawable/home_bottom_parent_bg"
 
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
 
 
         <RadioButton
@@ -59,7 +59,6 @@
 
 
     </RadioGroup>
-
 
 
 </LinearLayout>
