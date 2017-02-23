@@ -1,5 +1,6 @@
 package com.mancy.shoppingmall_1020.home.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.mancy.shoppingmall_1020.R;
 import com.mancy.shoppingmall_1020.base.BaseFragment;
+import com.mancy.shoppingmall_1020.home.adapter.HomeAdapter;
 import com.mancy.shoppingmall_1020.home.bean.HomeBean;
 import com.mancy.shoppingmall_1020.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -36,6 +38,8 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.ib_top)
     ImageButton ibTop;
     private TextView textView;
+
+    private HomeAdapter adapter;
 
 
     @Override
@@ -88,6 +92,14 @@ public class HomeFragment extends BaseFragment {
         HomeBean homeBean = JSON.parseObject(response, HomeBean.class);
 
         Log.e("TAG", "processData: " + homeBean.getResult().getHot_info().get(0).getName());
+
+
+        adapter = new HomeAdapter(mcontext, homeBean.getResult());
+        rvHome.setAdapter(adapter);
+
+        // 设置 布局管理器
+
+        rvHome.setLayoutManager(new LinearLayoutManager(mcontext, LinearLayoutManager.VERTICAL, false));
     }
 
 
