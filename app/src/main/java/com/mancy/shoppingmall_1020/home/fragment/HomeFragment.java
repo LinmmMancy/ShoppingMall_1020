@@ -6,12 +6,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.mancy.shoppingmall_1020.R;
 import com.mancy.shoppingmall_1020.base.BaseFragment;
+import com.mancy.shoppingmall_1020.home.bean.HomeBean;
+import com.mancy.shoppingmall_1020.utils.Constants;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Created by Mancy on 2017/2/22.
@@ -47,6 +53,41 @@ public class HomeFragment extends BaseFragment {
 
 
         Log.e("TAG", "initData: 主页内容");
+
+
+        getDataFromNet();
+    }
+
+    private void getDataFromNet() {
+
+        OkHttpUtils
+                .get()
+                //联网地址
+                .url(Constants.HOME_URL)
+                .id(100)//http,
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("TAG", "联网失败==" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("TAG", "联网成功==");
+                        processData(response);
+
+                    }
+                });
+    }
+
+    private void processData(String response) {
+        ///三种解析方式   gson 解析     fastjson   手动解析
+
+
+        HomeBean homeBean = JSON.parseObject(response, HomeBean.class);
+
+        Log.e("TAG", "processData: " + homeBean.getResult().getHot_info().get(0).getName());
     }
 
 
