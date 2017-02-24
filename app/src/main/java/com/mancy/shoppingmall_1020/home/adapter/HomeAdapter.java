@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,6 +21,9 @@ import com.youth.banner.transformer.BackgroundToForegroundTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Mancy on 2017/2/23.
@@ -76,9 +81,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     }
 
+    // 要显示类型数量的开关
     @Override
     public int getItemCount() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -113,6 +119,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         } else if (viewType == CHANNEL) {
 
+            return new ChannelViewHolder(context, inflater.inflate(R.layout.channel_item, null));
+
+
         } else if (viewType == ACT) {
 
         } else if (viewType == SECKILL) {
@@ -141,6 +150,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         } else if (getItemViewType(position) == CHANNEL) {
 
+            ChannelViewHolder ChannelViewHodler = (ChannelViewHolder) holder;
+
+            ChannelViewHodler.setData(result.getChannel_info());
+
         } else if (getItemViewType(position) == ACT) {
 
         } else if (getItemViewType(position) == SECKILL) {
@@ -155,6 +168,48 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     }
 
+
+    //  第二类型的item  分类型  开头 ↓
+
+    class ChannelViewHolder extends RecyclerView.ViewHolder {
+
+
+        private final Context context;
+        @BindView(R.id.gv_channel)
+        GridView gvChannel;
+
+        ChannelAdapter channelAdapter;
+
+
+        public ChannelViewHolder(Context context, View itemView) {
+            super(itemView);
+            this.context = context;
+            ButterKnife.bind(this, itemView);
+
+        }
+
+        public void setData(List<HomeBean.ResultBean.ChannelInfoBean> channel_info) {
+            channelAdapter = new ChannelAdapter(context, channel_info);
+            //将gridView 设置 适配器
+
+            gvChannel.setAdapter(channelAdapter);
+
+
+            gvChannel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(context, "position==" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+
+    }
+    //  第二类型的item  分类型   结尾  ↑
+
+
+    // 轮播图  开头  ↓
     class BannerViewHolder extends RecyclerView.ViewHolder {
 //        private TextView title;
 
@@ -219,6 +274,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
             });
         }
     }
-
+// 轮播图  结尾    ↑
 
 }
